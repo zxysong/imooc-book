@@ -3,7 +3,17 @@
     <router-view/>
   </div>
 </template>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  let fontSize = window.innerWidth / 10
+  fontSize = fontSize > 50 ? 50 : fontSize
+  const html = document.querySelector('html')
+  html.style.fontSize = fontSize + 'px'
+})
+export default {
 
+}
+</script>
 <style lang="scss" scoped>
   @import '@/assets/styles/global';
   #app {

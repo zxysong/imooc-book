@@ -1,7 +1,7 @@
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const CompressionWebpackPlugin = require('cnpm install compression-webpack-plugin --save-dev')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 // const zopfli = require("@gfx/zopfli");
 // const BrotliPlugin = require("brotli-webpack-plugin");
 
