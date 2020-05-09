@@ -21,6 +21,7 @@
       <EbookSettingFontPopup></EbookSettingFontPopup>
       <EbookSettingTheme></EbookSettingTheme>
         <EbookSettingProgress></EbookSettingProgress>
+        <EbookSlide />
 </div>
 
 </template>
@@ -31,6 +32,7 @@ import EbookSettingFont from './EbookSettingFont'
 import EbookSettingFontPopup from './EbookSettingFontPopup'
 import EbookSettingTheme from './EbookSettingTheme'
 import EbookSettingProgress from './EbookSettingProgress'
+import EbookSlide from './EbookSlide'
 export default {
   mixins: [ebookMixin],
   data () {
@@ -42,7 +44,8 @@ export default {
     EbookSettingFont,
     EbookSettingFontPopup,
     EbookSettingTheme,
-    EbookSettingProgress
+    EbookSettingProgress,
+    EbookSlide
   },
   mounted () {
     console.log('getSettingVisible 111', this.getSettingVisible)
@@ -62,7 +65,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
-  z-index: 101;
+  z-index: 300;
   width: 100%;
   height: px2rem(48);
   display: flex;

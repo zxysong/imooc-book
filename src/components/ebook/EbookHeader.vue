@@ -1,7 +1,6 @@
 <template>
-  <div class="ebook-footer">
-    <!--<span class="ebook-footer-text">{{this.paginate}}</span>-->
-    <span class="ebook-footer-text">{{this.getProgress + '%'}}</span>
+  <div class="ebook-header">
+    <span class="ebook-header-text">{{getSectionName}}</span>
   </div>
 </template>
 
@@ -14,19 +13,20 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "../../assets/styles/global";
+  @import "@/assets/styles/global";
 
-  .ebook-footer {
+  .ebook-header {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     z-index: 100;
     width: 100%;
     height: px2rem(48);
     padding: 0 px2rem(15);
     box-sizing: border-box;
-    @include right;
-    .ebook-footer-text {
+    overflow: hidden;
+    @include left;
+    .ebook-header-text {
       font-size: px2rem(12);
       color: #6d7178;
     }

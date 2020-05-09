@@ -1,7 +1,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import { themeList } from '@/utils/book'
 import { addCss, removeAllCss } from '@/utils/utils'
-import { saveLocation } from '@/utils/localStorage'
+import { saveLocation, getReadTime, getBookmark } from '@/utils/localStorage'
 export const ebookMixin = {
   computed: {
     ...mapGetters([
@@ -28,6 +28,21 @@ export const ebookMixin = {
     ]),
     themeList () {
       return themeList(this)
+    },
+    getReadTimeText () {
+      return this.$t('book.haveRead').replace('$1', this.getReadTimeByMinute())
+    },
+    getSectionName () {
+      // let name = '无'
+      // console.log('getSectio 无 n', this.getSection)
+      // if (this.getSection) {
+      //   const sectionInfo = this.getCurrentBook.section(this.getSection)
+      //   if (sectionInfo && sectionInfo.href) {
+      //     name = this.getCurrentBook.navigation.get(sectionInfo.href).label
+      //   }
+      // }
+
+      return this.getSection ? this.getNavigation[this.getSection].label : ''
     }
   },
   methods: {
@@ -75,12 +90,26 @@ export const ebookMixin = {
     },
     refreshLocation () {
       const currentLocation = this.getCurrentBook.rendition.currentLocation()
-      const startCfi = currentLocation.start.cfi
-      const progess = this.getCurrentBook.locations.percentageFromCfi(currentLocation.start.cfi)
+      if (currentLocation && currentLocation.start) {
+        const startCfi = currentLocation.start.cfi
+        const progess = this.getCurrentBook.locations.percentageFromCfi(currentLocation.start.cfi)
 
-      this.setProgress(Math.floor(progess * 100))
-      this.setSection(currentLocation.start.index)
-      saveLocation(this.getFileName, startCfi)
+        this.setProgress(Math.floor(progess * 100))
+        this.setSection(currentLocation.start.index)
+        saveLocation(this.getFileName, startCfi)
+
+        const bookmark = getBookmark(this.getFileName)
+        // console.log('bookmark', bookmark)
+        if (bookmark) {
+          if (bookmark.some(item => item.cfi === startCfi)) {
+            this.setIsBookmark(true)
+          } else {
+            this.setIsBookmark(false)
+          }
+        } else {
+          this.setIsBookmark(false)
+        }
+      }
     },
     display (target, cb) {
       if (target) {
@@ -93,6 +122,20 @@ export const ebookMixin = {
           this.refreshLocation()
           if (cb) cb()
         })
+      }
+    },
+    hideTitleAndMenu () {
+      // this.$store.dispatch('setMenuVisible', false)
+      this.setMenuVisible(false)
+      this.setSettingVisible(-1)
+      this.setFontFamilyVisible(false)
+    },
+    getReadTimeByMinute () {
+      const readTime = getReadTime(this.getFileName)
+      if (!readTime) {
+        return 0
+      } else {
+        return Math.ceil(readTime / 60)
       }
     }
   }

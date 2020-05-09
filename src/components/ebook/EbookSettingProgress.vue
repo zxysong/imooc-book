@@ -1,5 +1,5 @@
 <template>
-  <transition name="slide-up">
+  <transition name="fade">
     <div class="setting-wrapper" v-show="getMenuVisible && getSettingVisible === 2">
       <div class="setting-progress">
         <div class="read-time-wrapper">
@@ -34,7 +34,7 @@
 </template>
 <script type="text/ecmascript-6">
 import { ebookMixin } from '@/utils/mixins'
-import { saveProgress, getReadTime } from '@/utils/localStorage'
+import { saveProgress } from '@/utils/localStorage'
 
 export default {
   mixins: [ebookMixin],
@@ -44,38 +44,18 @@ export default {
     }
   },
   computed: {
-    getSectionName () {
-      let name = '无'
-      console.log('getSectio 无 n', this.getSection)
-      if (this.getSection) {
-        const sectionInfo = this.getCurrentBook.section(this.getSection)
-        if (sectionInfo && sectionInfo.href) {
-          name = this.getCurrentBook.navigation.get(sectionInfo.href).label
-        }
-      }
-      return name
-    },
-    getReadTimeText () {
-      return this.$t('book.haveRead').replace('$1', this.getReadTimeByMinute())
-    }
+
   },
   mounted () {
-    console.log('progress', this.getProgress)
+    // console.log('progress', this.getProgress)
   },
   methods: {
-    getReadTimeByMinute () {
-      const readTime = getReadTime(this.getFileName)
-      if (!readTime) {
-        return 0
-      } else {
-        return Math.ceil(readTime / 60)
-      }
-    },
+
     prevSection () {
       //  !this.isProgressLoading  ==  getBookAvailable
       if (this.getSection > 0 && this.getBookAvailable) {
         this.isProgressLoading = true
-        console.log('888')
+        // console.log('888')
         this.setSection(this.getSection - 1).then(() => {
           this.displaySection()
           this.isProgressLoading = false
@@ -87,7 +67,7 @@ export default {
       }
     },
     nextSection () {
-      console.log('nextSection')
+      // console.log('nextSection')、
       if (this.getCurrentBook.spine.length - 1 > this.getSection && this.getBookAvailable) {
         this.isProgressLoading = true
         this.setSection(this.getSection + 1).then(() => {
