@@ -51,7 +51,7 @@
           :class="{'select': getSection === index} "
           :style="contentItemStyle(item)"
         >{{item.label}}</div>
-        <div class="slide-contents-item-page"></div>
+        <div class="slide-contents-item-page">{{item.page}}</div>
       </div>
     </Scroll>
     <Scroll
@@ -237,9 +237,9 @@ export default {
     .slide-contents-item {
       padding: px2rem(20) 0;
       box-sizing: border-box;
-      //  display: flex;
+       display: flex;
       .slide-contents-item-label {
-        // flex: 1;
+        flex: 1;
         font-size: px2rem(14);
         @include ellipsis;
         line-height: px2rem(16);
@@ -248,6 +248,9 @@ export default {
         }
       }
       .slide-contents-item-page {
+          flex:  0 0  px2rem(30);
+          font-size: px2rem(12);
+          @include right;
       }
     }
   }

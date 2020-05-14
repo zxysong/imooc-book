@@ -44,7 +44,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/ebook'
+      redirect: '/store'
     },
     // {
     //   path: '/ebooker/:id',
@@ -60,6 +60,24 @@ export default new Router({
           path: ':fileName', // 根据输入的路径的不同动态显示内容
           name: 'ebookFileName',
           component: resolve => require(['@/components/ebook/EbookReader.vue'], resolve)
+        }
+        // {
+        //   path: 'ebook/:id', // 根据传☞的不同
+        //   // redirect: '/ebook',
+        //   name: 'bookReader',
+        //   component: () => import('@/views/ebook/data.vue')
+        // }
+      ]
+    },
+    {
+      path: '/store',
+      redirect: '/store/home',
+      component: resolve => require(['@/views/store/index.vue'], resolve),
+      children: [
+        {
+          path: '/store/home', // 根据输入的路径的不同动态显示内容
+          name: 'storeHome',
+          component: resolve => require(['@/views/store/storeHome.vue'], resolve)
         }
         // {
         //   path: 'ebook/:id', // 根据传☞的不同

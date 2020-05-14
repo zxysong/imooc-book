@@ -109,6 +109,18 @@ export const ebookMixin = {
         } else {
           this.setIsBookmark(false)
         }
+
+        if (this.getPagelist) {
+          const totalPae = this.getPagelist.length
+          const currentPage = currentLocation.start.location
+          if (currentPage && currentPage > 0) {
+            this.setPaginate(currentPage + ' / ' + totalPae)
+          } else {
+            this.setPaginate('')
+          }
+        } else {
+          this.setPaginate('')
+        }
       }
     },
     display (target, cb) {
@@ -138,5 +150,23 @@ export const ebookMixin = {
         return Math.ceil(readTime / 60)
       }
     }
+  }
+}
+
+export const storeHomeMixin = {
+  computed: {
+    ...mapGetters([
+      'getOffsetY',
+      'getHotSearchOffsetY',
+      'getFlapCardVisible'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setOffsetY',
+      'setHotSearchOffsetY',
+      'setFlapCardVisible'
+    ])
+
   }
 }

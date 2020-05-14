@@ -156,7 +156,7 @@ export default {
           item.level = find(item)
         })
         // console.log('navigation', navItem)
-        this.setNavigation(navItem)
+        this.setNavigation(navItem) // 目录
       })
     },
     initGuest () {
@@ -269,11 +269,35 @@ export default {
           ) // 分页算法
         })
         .then(locations => {
-          // console.log('location', location)
-          locations.forEach(item => {
-            
+          this.getNavigation.forEach(nav => {
+            nav.pagelist = []
           })
-
+          // console.log('locations', locations)
+          locations.forEach(item => {
+            const loc = item.match(/\[(.*)\]!/)[1]
+            console.log(loc)
+            this.getNavigation.forEach(nav => {
+              if (nav.href) {
+                const href = nav.href.match(/^(.*)\.html$/)[1]
+                if (loc === href) {
+                  nav.pagelist.push(item)
+                }
+              }
+              // if (nav.idhref && nav.idhref.indexOf(loc) >= 0) {
+              //   nav.pagelist.push(location)
+              // }
+            })
+            let currentPage = 1
+            this.getNavigation.forEach((item, index) => {
+              if (index === 0) {
+                item.page = 1
+              } else {
+                item.page = currentPage
+              }
+              currentPage += item.pagelist.length + 1
+            })
+          })
+          this.setPagelist(locations)
           this.setBookAvailable(true)
           this.refreshLocation()
         })

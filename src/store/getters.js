@@ -18,6 +18,9 @@ const getters = {
   getPagelist: state => state.book.pagelist,
   getOffsetY: state => state.book.offsetY,
   getIsBookmark: state => state.book.isBookmark,
-  getSpeakingIconBottom: state => state.book.speakingIconBottom
+  getSpeakingIconBottom: state => state.book.speakingIconBottom,
+  getHotSearchOffsetY: state => state.store.hotSearchOffsetY,
+  getFlapCardVisible: state => state.store.flapCardVisible
+
 }
 export default getters
